@@ -1,0 +1,35 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+  <title>Udacity Project 3 - Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+
+<div class="container">
+
+  <h1><a href = "/">A Blog</a></h1>
+
+  <nav>
+    <a href = "/newpost">New Post</a> |
+    {% if user %}
+      <a href = "/user">My Posts</a> |
+      <a href = "/logout">Logout</a>
+    {% else %}
+      <a href = "/login">Login</a>
+    {% endif %}
+    <hr>
+  </nav>
+
+{% block content %}
+{% endblock %}
+
+</div>
+
+</body>
+
+</html>
