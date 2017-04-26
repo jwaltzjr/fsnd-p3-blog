@@ -7,8 +7,8 @@ from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelatio
 # Create your models here.
 
 class User(models.Model):
-    username = models.CharField(blank=False)
-    password = models.CharField(blank=False)
+    username = models.CharField(max_length=32, blank=False)
+    password = models.CharField(max_length=32, blank=False)
     email = models.EmailField()
 
 class Like(models.Model):
@@ -18,7 +18,7 @@ class Like(models.Model):
     direct_parent = GenericForeignKey('level', 'parent_id')
 
 class BlogPost(models.Model):
-    title = models.CharField(blank=False)
+    title = models.CharField(max_length=32, blank=False)
     body = models.TextField(blank=False)
     user = models.ForeignKey('User', blank=False)
     created = models.DateTimeField(auto_now_add=True)
