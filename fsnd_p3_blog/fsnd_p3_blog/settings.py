@@ -54,6 +54,12 @@ ROOT_URLCONF = 'fsnd_p3_blog.urls'
 
 TEMPLATES = [
     {
+        'BACKEND': 'django.template.backends.jinja2.Jinja2',
+        'DIRS': [os.path.join(BASE_DIR, 'jinja2')],
+        'APP_DIRS': True,
+        'OPTIONS': {'environment': 'blog.jinja_env.environment'},
+    },
+    {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
