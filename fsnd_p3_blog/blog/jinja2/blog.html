@@ -2,7 +2,7 @@
 
 {% block content %}
 
-{% for post in posts %}
+{% for post in object_list %}
   <a style="display: block; color: inherit; text-decoration: none;" href = "/{{ post.key().id() }}" class="post">
     <div class="post">
       <h3 class="post-title">{{  post.title  }}</h3>
