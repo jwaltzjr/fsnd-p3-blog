@@ -11,6 +11,12 @@ class User(models.Model):
     password = models.CharField(blank=False)
     email = models.EmailField()
 
+class Like(models.Model):
+    user = models.ForeignKey('User', blank=False)
+    level = models.ForeignKey(ContentType, blank=False)
+    parent_id = models.PositiveIntegerField()
+    direct_parent = GenericForeignKey('level', 'parent_id')
+
 class BlogPost(models.Model):
     title = models.CharField(blank=False)
     body = models.TextField(blank=False)
@@ -49,9 +55,3 @@ class Comment(models.Model):
 
     def user_liked(self, user):
         return self.likes.filter(user=user).get()
-
-class Like(models.Model):
-    user = models.ForeignKey('User', blank=False)
-    level = models.ForeignKey(ContentType, blank=False)
-    parent_id = models.PositiveIntegerField()
-    direct_parent = GenericForeignKey('level', 'parent_id')
