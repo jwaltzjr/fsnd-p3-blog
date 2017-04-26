@@ -1,6 +1,9 @@
 from django.db import models
 from django.contrib import contenttypes
 
+from django.contrib.contenttypes.models import ContentType
+from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
+
 # Create your models here.
 
 class User(models.Model):
@@ -14,7 +17,7 @@ class BlogPost(models.Model):
     user = models.ForeignKey('User', blank=False)
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
-    likes = contenttypes.fields.GenericRelation(
+    likes = GenericRelation(
         Like,
         content_type_field='level',
         object_id_field='parent_id',
@@ -35,7 +38,7 @@ class Comment(models.Model):
     post = models.ForeignKey('BlogPost', blank=False)
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
-    likes = contenttypes.fields.GenericRelation(
+    likes = GenericRelation(
         Like,
         content_type_field='level',
         object_id_field='parent_id',
@@ -49,6 +52,6 @@ class Comment(models.Model):
 
 class Like(models.Model):
     user = models.ForeignKey('User', blank=False)
-    level = models.ForeignKey(contenttypes.models.ContentType, blank=False)
+    level = models.ForeignKey(ContentType, blank=False)
     parent_id = models.PositiveIntegerField()
-    direct_parent = contenttypes.fields.GenericForeignKey('level', 'parent_id')
+    direct_parent = GenericForeignKey('level', 'parent_id')
