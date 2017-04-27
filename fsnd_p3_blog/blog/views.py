@@ -9,3 +9,6 @@ from . import models
 class MainView(ListView):
     template_name = 'blog.html'
     model = models.BlogPost
+
+def test(request):
+    return HttpResponse('testing, testing...')
