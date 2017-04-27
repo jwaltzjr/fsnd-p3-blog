@@ -14,13 +14,13 @@
 		        Last Modified: {{ post.modified }}
         </span>
       </pre>
-      {% if user and user.key().id() == post.user.key().id() %}
-        <a href="/{{ post.key().id() }}/edit">Edit</a>
+      {% if user.is_authenticated() %}
+        <a href="{{ url('post_edit', args=['post.id']) }}">Edit</a>
       {% else %}
         {% if post.user_liked(user) %}
-          <a href="/{{ post.key().id() }}/unlike">Unlike</a>
+          <a href="{{ url('post_unlike', args=['post.id']) }}">Unlike</a>
         {% else %}
-          <a href="/{{ post.key().id() }}/like">Like</a>
+          <a href="{{ url('post_like', args=['post.id']) }}">Like</a>
         {% endif %}
       {% endif %}
     </div>
