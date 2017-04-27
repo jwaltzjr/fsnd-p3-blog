@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.db import models
 
 from django.contrib.contenttypes.models import ContentType
@@ -5,13 +6,8 @@ from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelatio
 
 # Create your models here.
 
-class User(models.Model):
-    username = models.CharField(max_length=32, blank=False)
-    password = models.CharField(max_length=32, blank=False)
-    email = models.EmailField()
-
 class Like(models.Model):
-    user = models.ForeignKey('User', blank=False)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, blank=False)
     level = models.ForeignKey(ContentType, blank=False)
     parent_id = models.PositiveIntegerField()
     direct_parent = GenericForeignKey('level', 'parent_id')
@@ -19,7 +15,7 @@ class Like(models.Model):
 class BlogPost(models.Model):
     title = models.CharField(max_length=32, blank=False)
     body = models.TextField(blank=False)
-    user = models.ForeignKey('User', blank=False)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, blank=False)
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
     likes = GenericRelation(
@@ -39,7 +35,7 @@ class BlogPost(models.Model):
 
 class Comment(models.Model):
     comment = models.TextField(blank=False)
-    user = models.ForeignKey('User', blank=False)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, blank=False)
     post = models.ForeignKey('BlogPost', blank=False)
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
