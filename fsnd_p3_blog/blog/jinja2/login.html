@@ -3,19 +3,28 @@
 {% block content %}
 
 <form method="post">
+  {{ csrf_input }}
 
   <h3>Login</h3>
 
-  <label> Username
-    <input type="text" value="{{ old_user }}" name="username">
+  <label>
+    Username
+    {{ form.username }}
+    {# <input type="text" value="{{ old_user }}" name="username"> #}
   </label>
-  <p style="display: inline; color: red;">{{ error_username }}</p>
+  <p style="display: inline; color: red;">{{ form.username.errors }}</p>
+
   <br>
-  <label> Password
-    <input type="password" name="password">
+
+  <label>
+    Password
+    {{ form.password }}
+    {# <input type="password" name="password"> #}
   </label>
-  <p style="display: inline; color: red;">{{ error_password }}</p>
+  <p style="display: inline; color: red;">{{ form.password.errors }}</p>
+
   <br>
+
   <input type="submit">
 
 </form>
