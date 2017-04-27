@@ -9,8 +9,3 @@ from . import models
 class MainView(ListView):
     template_name = 'blog.html'
     model = models.BlogPost
-
-    def get_context_data(self, **kwargs):
-        context = super(ListView, self).get_context_data(**kwargs)
-        # context['user'] = self.check_login()
-        return context
