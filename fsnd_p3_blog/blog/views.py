@@ -7,9 +7,9 @@ from . import models
 
 # Create your views here.
 
-class MainPage(ListView):
-    template_name = 'blog.html'
-    model = models.BlogPost
+def main(request):
+    posts = models.BlogPost.objects.all().order_by('-created')
+    return render(request, 'blog.html', context={'posts': posts})
 
 class LoginPage(auth_views.LoginView):
     template_name = 'login.html'
