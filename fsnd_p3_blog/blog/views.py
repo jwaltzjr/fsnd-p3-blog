@@ -11,8 +11,7 @@ from . import models
 
 def main(request):
     posts = models.BlogPost.objects.all().order_by('-created')
-    context = RequestContext(request, {'post': posts})
-    return render(request, 'blog.html', context)
+    return render(request, 'blog.html', {'post': posts})
 
 def signup(request):
     if request.method == 'POST':
@@ -26,8 +25,7 @@ def signup(request):
             return redirect('main')
     else:
         form = UserCreationForm()
-    context = RequestContext(request, {'form': form})
-    return render(request, 'signup.html', context)
+    return render(request, 'signup.html', {'form': form})
 
 class LoginPage(auth_views.LoginView):
     template_name = 'login.html'
