@@ -3,29 +3,27 @@
 {% block content %}
 
 <form method="post">
+  {{ csrf_input }}
 
   <h3>Sign Up!</h3>
 
-  <label> Username
-    <input type="text" value="{{ old_user }}" name="username">
-  </label>
-  <p style="display: inline; color: red;">{{ error_username }}</p>
-  <br>
-  <label> Password
-    <input type="password" name="password">
-  </label>
-  <p style="display: inline; color: red;">{{ error_password }}</p>
-  <br>
-  <label> Verify Password
-    <input type="password" name="verify">
-  </label>
-  <p style="display: inline; color: red;">{{ error_verify }}</p>
-  <br>
-  <label> Email (optional)
-    <input type="text" value="{{ old_email }}" name="email">
-  </label>
-  <p style="display: inline; color: red;">{{ error_email }}</p>
-  <br>
+  {{ form.non_field_errors() }}
+  <div class="fieldWrapper">
+    {{ form.username.label_tag() }}
+    {{ form.username }}
+    {{ form.username.errors }}
+  </div>
+  <div class="fieldWrapper">
+    {{ form.password1.label_tag() }}
+    {{ form.password1 }}
+    {{ form.password1.errors }}
+  </div>
+  <div class="fieldWrapper">
+    {{ form.password2.label_tag() }}
+    {{ form.password2 }}
+    {{ form.password2.errors }}
+  </div>
+  {{ form.password1.help_text|safe }}
   <input type="submit">
 
 </form>

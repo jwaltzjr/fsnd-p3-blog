@@ -16,7 +16,7 @@
 
   <nav>
     <a href = "/newpost">New Post</a> |
-    {% if user %}
+    {% if user.is_authenticated() %}
       <a href = "/user">My Posts</a> |
       <a href = "/logout">Logout</a>
     {% else %}
