@@ -27,11 +27,5 @@ def signup(request):
         form = UserCreationForm()
     return render(request, 'signup.html', {'form': form})
 
-class LoginPage(auth_views.LoginView):
-    template_name = 'login.html'
-
-class LogoutPage(auth_views.LogoutView):
-    template_name = 'logout.html'
-
 def test(request):
     return HttpResponse('testing, testing...')

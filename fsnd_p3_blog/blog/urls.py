@@ -1,4 +1,5 @@
 from django.conf.urls import url
+from django.contrib.auth import views as auth_views
 
 from . import views
 
@@ -18,6 +19,6 @@ urlpatterns = [
     url(r'^([0-9]+)/([0-9]+)/unlike/$', views.test, name='comment_unlike'),
     url(r'^signup/$', views.signup, name='signup'),
     url(r'^welcome/$', views.test, name='welcome'),
-    url(r'^login/$', views.LoginPage.as_view(), name='login'),
-    url(r'^logout/$', views.LogoutPage.as_view(), name='logout')
+    url(r'^login/$', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
+    url(r'^logout/$', auth_views.LogoutView.as_view(template_name='logout.html'), name='logout')
 ]
