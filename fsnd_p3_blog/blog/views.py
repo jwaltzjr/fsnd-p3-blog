@@ -2,7 +2,7 @@ from django.core.exceptions import PermissionDenied
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.template import RequestContext
-from django.views.generic import TemplateView, ListView
+from django.views.generic import TemplateView, ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth import login, authenticate, views as auth_views
 from django.contrib.auth.forms import UserCreationForm
@@ -31,9 +31,13 @@ def signup(request):
         form = UserCreationForm()
     return render(request, 'blog/signup.html', {'form': form})
 
+class BlogPostView(DetailView):
+    model = models.BlogPost
+    context_object_name = 'post'
+
 class BlogPostCreate(LoginRequiredMixin, CreateView):
     model = models.BlogPost
-    fields = ['title','body']
+    fields = ['title', 'body']
 
     def form_valid(self, form):
         form.instance.user = self.request.user
@@ -41,7 +45,7 @@ class BlogPostCreate(LoginRequiredMixin, CreateView):
 
 class BlogPostUpdate(LoginRequiredMixin, UpdateView):
     model = models.BlogPost
-    fields = ['title','body']
+    fields = ['title', 'body']
 
     def get_object(self, queryset=None):
         blogpost = super(BlogPostUpdate, self).get_object()

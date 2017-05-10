@@ -12,16 +12,18 @@
       Last Modified: {{ post.modified }}
     </span>
   </pre>
-  {% if user and user.key().id() == post.user.key().id() %}
-    <a href="/{{ post.key().id() }}/edit">Edit</a>
+  {% if request.user.is_authenticated() and request.user == post.user %}
+    <a href="{{ url('post_edit', kwargs={'pk': post.pk}) }}">Edit</a>
   {% else %}
-    {% if post.user_liked(user) %}
-      <a href="/{{ post.key().id() }}/unlike">Unlike</a>
+    {% if post.user_liked(request.user) %}
+      <a href="{{ url('post_unlike', kwargs={'pk': post.pk}) }}">Unlike</a>
     {% else %}
-      <a href="/{{ post.key().id() }}/like">Like</a>
+      <a href="{{ url('post_like', kwargs={'pk': post.pk}) }}">Like</a>
     {% endif %}
   {% endif %}
 </div>
+
+{#
 <form method="post">
   <input type="text" name="comment">
   <input type="submit" value="Post Comment">
@@ -38,7 +40,7 @@
           Last Modified: {{ c.modified }}
         </span>
       </pre>
-      
+
       {% if user.key().id() == c.user.key().id() %}
         <a href = "/{{ post.key().id() }}/{{ c.key().id() }}/edit">Edit</a>
       {% else %}
@@ -51,6 +53,7 @@
     </div>
   {% endfor %}
 </div>
+#}
 
 {% endblock %}
 
