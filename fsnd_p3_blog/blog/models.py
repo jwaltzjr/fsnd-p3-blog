@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.db import models
+from django.urls import reverse
 
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
@@ -23,6 +24,9 @@ class BlogPost(models.Model):
         content_type_field='level',
         object_id_field='parent_id',
     )
+
+    def get_absolute_url(self):
+        return reverse('post_view', kwargs={'pk': self.pk})
 
     def count_comments(self):
         return self.comment_set.all().count()

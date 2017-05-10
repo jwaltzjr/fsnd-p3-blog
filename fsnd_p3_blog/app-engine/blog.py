@@ -122,7 +122,6 @@ class Handler(webapp2.RequestHandler):
         self.response.headers.add_header('Set-Cookie',cookie) # Set login cookie
         self.redirect('/welcome')
 
-
 class MainPage(Handler):
 
     def get(self):
@@ -294,7 +293,7 @@ class EditCommentPage(Handler):
 
         post = datastore.BlogPost.get_by_id(int(post_id))
         comment = datastore.Comment.get_by_id(int(comment_id), parent = post)
-        
+
         if user.key().id() == comment.user.key().id():
             self.render_page(post, user, comment.comment)
         else:
@@ -403,7 +402,7 @@ class LikePost(Handler):
                 direct_parent = post.key().id()
             )
             time.sleep(.2) # Hack because of datastore issues
-        
+
         self.redirect('/%s' % post_id)
 
 class LikeComment(Handler):
@@ -503,7 +502,7 @@ class SignupPage(Handler):
             else:
                 if not in_verify: # Null check
                     er_verify  = 'The passwords did not match.'
-                else: # Success 
+                else: # Success
                     er_verify = ''
 
             in_email = self.request.get('email')
