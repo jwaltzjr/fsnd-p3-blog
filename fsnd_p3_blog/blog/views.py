@@ -10,6 +10,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.contrib.contenttypes.models import ContentType
 from django.urls import reverse_lazy
+from django.contrib.auth.models import User
 
 
 from . import models
@@ -99,6 +100,14 @@ def unlike_post(request, pk=None):
         pass
     return redirect('post_view', pk=post.pk)
 
+@login_required
+def user_self_redirect(request):
+    return redirect('user_view', username=request.user.username)
+
+def user_list(request, username=None):
+    user = get_object_or_404(User, username=username)
+    posts = models.BlogPost.objects.filter(user=user).order_by('-created')
+    return render(request, 'blog/blog.html', {'posts': posts})
 
 def test(request):
     return HttpResponse('testing, testing...')

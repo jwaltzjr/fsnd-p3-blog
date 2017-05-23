@@ -22,8 +22,8 @@ post_patterns = [
 urlpatterns = [
     url(r'^$', views.main, name='main'),
     url(r'^(?P<pk>[0-9]+)/', include(post_patterns)),
-    # url(r'^user/$', views.test, name='user_redirect'),
-    # url(r'^user/([A-Za-z0-9]+)/$', views.test, name='user_view'),
+    url(r'^user/$', views.user_self_redirect, name='user_redirect'),
+    url(r'^user/(?P<username>[A-Za-z0-9]+)/$', views.user_list, name='user_view'),
     url(r'^newpost/$', views.BlogPostCreate.as_view(), name='newpost'),
     url(r'^signup/$', views.signup, name='signup'),
     # url(r'^welcome/$', views.test, name='welcome'),
