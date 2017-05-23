@@ -9,9 +9,9 @@ from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelatio
 
 class Like(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, blank=False)
-    level = models.ForeignKey(ContentType, blank=False)
-    parent_id = models.PositiveIntegerField()
-    direct_parent = GenericForeignKey('level', 'parent_id')
+    content_type = models.ForeignKey(ContentType, blank=False)
+    object_id = models.PositiveIntegerField()
+    content_object = GenericForeignKey()
 
 class BlogPost(models.Model):
     title = models.CharField(max_length=32, blank=False)
@@ -19,11 +19,7 @@ class BlogPost(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, blank=False)
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
-    likes = GenericRelation(
-        Like,
-        content_type_field='level',
-        object_id_field='parent_id',
-    )
+    likes = GenericRelation(Like)
 
     def get_absolute_url(self):
         return reverse('post_view', kwargs={'pk': self.pk})
@@ -47,11 +43,7 @@ class Comment(models.Model):
     post = models.ForeignKey('BlogPost', blank=False)
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
-    likes = GenericRelation(
-        Like,
-        content_type_field='level',
-        object_id_field='parent_id',
-    )
+    likes = GenericRelation(Like)
 
     def count_likes(self):
         return self.likes.all().count()

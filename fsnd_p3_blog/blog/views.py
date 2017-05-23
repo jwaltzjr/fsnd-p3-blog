@@ -1,5 +1,5 @@
 from django.core.exceptions import PermissionDenied
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from django.template import RequestContext
 from django.views.generic import TemplateView, ListView, DetailView
@@ -7,7 +7,10 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth import login, authenticate, views as auth_views
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
+from django.contrib.contenttypes.models import ContentType
 from django.urls import reverse_lazy
+
 
 from . import models
 
@@ -70,6 +73,18 @@ class BlogPostDelete(LoginRequiredMixin, DeleteView):
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super(BlogPostDelete, self).form_valid(form)
+
+@login_required
+def like_post(request, pk=None):
+    post = get_object_or_404(models.BlogPost, pk=pk)
+    if request.user != post.user: # Can't like your own post
+        like = models.Like.objects.get_or_create(
+            user = request.user,
+            content_type = ContentType.objects.get_for_model(post.__class__),
+            object_id = post.id
+        )
+    return redirect('post_view', pk=post.pk)
+
 
 def test(request):
     return HttpResponse('testing, testing...')
