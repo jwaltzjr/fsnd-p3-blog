@@ -35,7 +35,11 @@ class BlogPost(models.Model):
         return self.likes.all().count()
 
     def user_liked(self, user):
-        return self.likes.filter(user=user).get()
+        try:
+            user_like = self.likes.filter(user=user).get()
+        except Like.DoesNotExist:
+            user_like = None
+        return user_like
 
 class Comment(models.Model):
     comment = models.TextField(blank=False)
@@ -53,4 +57,8 @@ class Comment(models.Model):
         return self.likes.all().count()
 
     def user_liked(self, user):
-        return self.likes.filter(user=user).get()
+        try:
+            user_like = self.likes.filter(user=user).get()
+        except Like.DoesNotExist:
+            user_like = None
+        return user_like
