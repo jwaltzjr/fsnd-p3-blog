@@ -85,6 +85,20 @@ def like_post(request, pk=None):
         )
     return redirect('post_view', pk=post.pk)
 
+@login_required
+def unlike_post(request, pk=None):
+    post = get_object_or_404(models.BlogPost, pk=pk)
+    try:
+        like = models.Like.objects.filter(
+            user = request.user,
+            content_type = ContentType.objects.get_for_model(post.__class__),
+            object_id = post.id
+        ).get()
+        like.delete()
+    except models.Like.DoesNotExist:
+        pass
+    return redirect('post_view', pk=post.pk)
+
 
 def test(request):
     return HttpResponse('testing, testing...')
