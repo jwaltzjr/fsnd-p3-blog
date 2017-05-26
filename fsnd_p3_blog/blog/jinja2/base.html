@@ -15,13 +15,13 @@
   <h1><a href = "/">A Blog</a></h1>
 
   <nav>
-    <a href = "/newpost">New Post</a> |
+    <a href = "{{ url('newpost') }}">New Post</a> |
     {% if request.user.is_authenticated() %}
-      <a href = "/user">My Posts</a> |
-      <a href = "/logout">Logout</a>
+      <a href = "{{ url('user_redirect') }}">My Posts</a> |
+      <a href = "{{ url('logout') }}">Logout</a>
     {% else %}
-      <a href = "/login">Login</a> |
-      <a href = "/signup">Sign Up</a>
+      <a href = "{{ url('login') }}">Login</a> |
+      <a href = "{{ url('signup') }}">Sign Up</a>
     {% endif %}
     <hr>
   </nav>
