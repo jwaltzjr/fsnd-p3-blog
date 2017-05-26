@@ -31,9 +31,12 @@ class BlogPost(models.Model):
         return self.likes.all().count()
 
     def user_liked(self, user):
-        try:
-            user_like = self.likes.filter(user=user).get()
-        except Like.DoesNotExist:
+        if user.is_authenticated:
+            try:
+                user_like = self.likes.filter(user=user).get()
+            except Like.DoesNotExist:
+                user_like = None
+        else:
             user_like = None
         return user_like
 
@@ -49,8 +52,11 @@ class Comment(models.Model):
         return self.likes.all().count()
 
     def user_liked(self, user):
-        try:
-            user_like = self.likes.filter(user=user).get()
-        except Like.DoesNotExist:
+        if user.is_authenticated:
+            try:
+                user_like = self.likes.filter(user=user).get()
+            except Like.DoesNotExist:
+                user_like = None
+        else:
             user_like = None
         return user_like
