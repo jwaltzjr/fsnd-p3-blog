@@ -30,10 +30,14 @@ def signup(request):
             password = form.cleaned_data.get('password1')
             user = authenticate(username=username, password=password)
             login(request, user)
-            return redirect('main')
+            return redirect('welcome')
     else:
         form = UserCreationForm()
     return render(request, 'blog/signup.html', {'form': form})
+
+@login_required
+def welcome(request):
+    return render(request, 'blog/welcome.html')
 
 class BlogPostView(DetailView):
     model = models.BlogPost
