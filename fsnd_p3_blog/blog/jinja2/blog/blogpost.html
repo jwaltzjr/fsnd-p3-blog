@@ -14,12 +14,18 @@
       Comments: {{ post.count_comments() }}
     #}
     {% if request.user.is_authenticated() and request.user == post.user %}
-      <a class="btn btn-default" href="{{ url('post_edit', kwargs={'pk': post.pk}) }}">Edit</a>
+      <a class="btn btn-default" href="{{
+        url('post_edit', kwargs={'pk': post.pk})
+      }}">Edit</a>
     {% else %}
       {% if post.user_liked(request.user) %}
-        <a class="btn btn-default" href="{{ url('post_unlike', kwargs={'pk': post.pk}) }}">Unlike</a>
+        <a class="btn btn-default" href="{{
+          url('post_unlike', kwargs={'pk': post.pk})
+        }}">Unlike</a>
       {% else %}
-        <a class="btn btn-default" href="{{ url('post_like', kwargs={'pk': post.pk}) }}">Like</a>
+        <a class="btn btn-default" href="{{
+          url('post_like', kwargs={'pk': post.pk})
+        }}">Like</a>
       {% endif %}
     {% endif %}
   </div>
