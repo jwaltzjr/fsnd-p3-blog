@@ -1,5 +1,9 @@
 {% extends 'base.html' %}
 
+{% block titleblock %}
+  {{  post.title|title }} - Blog - Web Portfolio
+{% endblock %}
+
 {% block content %}
 
 {% include 'blog/blogpost.html' %}

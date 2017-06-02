@@ -1,9 +1,13 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
+
+{% block titleblock %}
+  Blog - Web Portfolio
+{% endblock %}
 
 {% block content %}
 
   {% for post in posts %}
-    <a style="display: block; color: inherit; text-decoration: none;" href="{{ url('post_view', kwargs={'pk': post.pk}) }}" class="post">
+    <a href="{{ url('post_view', kwargs={'pk': post.pk}) }}" class="clean-link">
       {% include 'blog/blogpost.html' %}
     </a>
   {% endfor %}
