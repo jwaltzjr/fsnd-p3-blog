@@ -1,6 +1,5 @@
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import PermissionDenied
-from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
 
@@ -114,6 +113,3 @@ def signup(request):
 @login_required
 def welcome(request):
     return render(request, 'blog/welcome.html')
-
-def test(request):
-    return HttpResponse('testing, testing...')
