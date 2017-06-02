@@ -59,7 +59,15 @@ class BlogPostDelete(LoginRequiredMixin, DeleteView):
         return super().form_valid(form)
 
 def main(request):
-    posts = models.BlogPost.objects.all().order_by('-created')
+    posts = models.BlogPost.objects.filter(published=True).order_by('-created')
+    return render(request, 'blog/blog.html', {'posts': posts})
+
+@login_required
+def drafts(request):
+    posts = models.BlogPost.objects.filter(
+        published=False,
+        user = request.user
+    ).order_by('-modified')
     return render(request, 'blog/blog.html', {'posts': posts})
 
 @login_required
