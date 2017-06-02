@@ -18,7 +18,7 @@
         url('post_edit', kwargs={'pk': post.pk})
       }}">Edit</a>
       {% if post.published %}
-        <a class="btn btn-disabled" href="#">Published {{ post.publish_time|format_datetime }}</a>
+        Published {{ post.publish_time|format_datetime }}
       {% else %}
         <a class="btn btn-default" href="{{
           url('post_publish', kwargs={'pk': post.pk})
