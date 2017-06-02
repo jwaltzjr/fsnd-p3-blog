@@ -27,35 +27,35 @@ class BlogPostCreate(LoginRequiredMixin, CreateView):
 
     def form_valid(self, form):
         form.instance.user = self.request.user
-        return super(BlogPostCreate, self).form_valid(form)
+        return super().form_valid(form)
 
 class BlogPostUpdate(LoginRequiredMixin, UpdateView):
     model = models.BlogPost
     fields = ['title', 'body']
 
     def get_object(self, queryset=None):
-        blogpost = super(BlogPostUpdate, self).get_object()
+        blogpost = super().get_object()
         if blogpost.user != self.request.user:
             raise PermissionDenied
         return blogpost
 
     def form_valid(self, form):
         form.instance.user = self.request.user
-        return super(BlogPostUpdate, self).form_valid(form)
+        return super().form_valid(form)
 
 class BlogPostDelete(LoginRequiredMixin, DeleteView):
     model = models.BlogPost
     success_url = reverse_lazy('main')
 
     def get_object(self, queryset=None):
-        blogpost = super(BlogPostDelete, self).get_object()
+        blogpost = super().get_object()
         if blogpost.user != self.request.user:
             raise PermissionDenied
         return blogpost
 
     def form_valid(self, form):
         form.instance.user = self.request.user
-        return super(BlogPostDelete, self).form_valid(form)
+        return super().form_valid(form)
 
 def main(request):
     posts = models.BlogPost.objects.all().order_by('-created')
