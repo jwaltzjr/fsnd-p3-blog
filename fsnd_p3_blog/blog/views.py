@@ -1,17 +1,17 @@
+from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import PermissionDenied
-from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
-from django.template import RequestContext
-from django.views.generic import TemplateView, ListView, DetailView
+from django.shortcuts import render, redirect, get_object_or_404
+from django.urls import reverse_lazy
+
+from django.views.generic import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from django.contrib.auth import login, authenticate, views as auth_views
+
+from django.contrib.auth import login, authenticate
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.decorators import login_required
-from django.contrib.contenttypes.models import ContentType
-from django.urls import reverse_lazy
 from django.contrib.auth.models import User
-
 
 from . import models
 
