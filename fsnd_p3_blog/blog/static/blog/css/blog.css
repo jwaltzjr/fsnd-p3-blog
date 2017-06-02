@@ -4,3 +4,17 @@ a.clean-link {
   text-decoration: inherit;
   cursor: auto;
 }
+
+.blogpost {
+
+}
+
+.blogpost-footer {
+  text-align: right;
+}
+
+.blogpost-footer ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
