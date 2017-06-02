@@ -101,7 +101,10 @@ def user_self_redirect(request):
 
 def user_list(request, username=None):
     user = get_object_or_404(User, username=username)
-    posts = models.BlogPost.objects.filter(user=user).order_by('-created')
+    posts = models.BlogPost.objects.filter(
+        user=user,
+        published=True
+    ).order_by('-created')
     return render(request, 'blog/blog.html', {'posts': posts})
 
 def signup(request):
