@@ -17,6 +17,13 @@
       <a class="btn btn-default" href="{{
         url('post_edit', kwargs={'pk': post.pk})
       }}">Edit</a>
+      {% if post.published %}
+        <a class="btn btn-disabled" href="#">Published {{ post.publish_time }}</a>
+      {% else %}
+        <a class="btn btn-default" href="{{
+          url('post_publish', kwargs={'pk': post.pk})
+        }}">Publish</a>
+      {% endif %}
     {% else %}
       {% if post.user_liked(request.user) %}
         <a class="btn btn-default" href="{{
