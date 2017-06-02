@@ -64,11 +64,11 @@ def main(request):
 
 @login_required
 def drafts(request):
-    posts = models.BlogPost.objects.filter(
+    drafts = models.BlogPost.objects.filter(
         published=False,
         user = request.user
     ).order_by('-modified')
-    return render(request, 'blog/blog.html', {'posts': posts})
+    return render(request, 'blog/drafts.html', {'posts': drafts})
 
 @login_required
 def like_post(request, pk=None):

@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block titleblock %}
+  {{ extra_title }} Blog - Web Portfolio
+{% endblock %}
+
+{% block content %}
+
+  {% for post in posts %}
+    <a href="{{ url('post_view', kwargs={'pk': post.pk}) }}" class="clean-link">
+      {% include 'blog/blogpost.html' %}
+    </a>
+  {% endfor %}
+
+{% endblock %}
