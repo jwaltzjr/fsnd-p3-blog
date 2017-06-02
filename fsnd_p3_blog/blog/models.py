@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.db import models
 from django.urls import reverse
+from django.utils import timezone
 
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
@@ -20,9 +21,17 @@ class BlogPost(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
     likes = GenericRelation(Like)
+    published = models.BooleanField()
+    publish_time = models.DateTimeField()
 
     def get_absolute_url(self):
         return reverse('post_view', kwargs={'pk': self.pk})
+
+    def publish(self):
+        self.published = True
+        self.published_time = timezone.now()
+        self.save()
+        return self
 
     def count_comments(self):
         return self.comment_set.all().count()
