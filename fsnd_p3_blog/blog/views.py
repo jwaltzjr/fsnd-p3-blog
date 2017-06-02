@@ -17,28 +17,6 @@ from . import models
 
 # Create your views here.
 
-def main(request):
-    posts = models.BlogPost.objects.all().order_by('-created')
-    return render(request, 'blog/blog.html', {'posts': posts})
-
-def signup(request):
-    if request.method == 'POST':
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
-            form.save()
-            username = form.cleaned_data.get('username')
-            password = form.cleaned_data.get('password1')
-            user = authenticate(username=username, password=password)
-            login(request, user)
-            return redirect('welcome')
-    else:
-        form = UserCreationForm()
-    return render(request, 'blog/signup.html', {'form': form})
-
-@login_required
-def welcome(request):
-    return render(request, 'blog/welcome.html')
-
 class BlogPostView(DetailView):
     model = models.BlogPost
     context_object_name = 'post'
@@ -79,6 +57,10 @@ class BlogPostDelete(LoginRequiredMixin, DeleteView):
         form.instance.user = self.request.user
         return super(BlogPostDelete, self).form_valid(form)
 
+def main(request):
+    posts = models.BlogPost.objects.all().order_by('-created')
+    return render(request, 'blog/blog.html', {'posts': posts})
+
 @login_required
 def like_post(request, pk=None):
     post = get_object_or_404(models.BlogPost, pk=pk)
@@ -112,6 +94,24 @@ def user_list(request, username=None):
     user = get_object_or_404(User, username=username)
     posts = models.BlogPost.objects.filter(user=user).order_by('-created')
     return render(request, 'blog/blog.html', {'posts': posts})
+
+def signup(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password1')
+            user = authenticate(username=username, password=password)
+            login(request, user)
+            return redirect('welcome')
+    else:
+        form = UserCreationForm()
+    return render(request, 'blog/signup.html', {'form': form})
+
+@login_required
+def welcome(request):
+    return render(request, 'blog/welcome.html')
 
 def test(request):
     return HttpResponse('testing, testing...')
