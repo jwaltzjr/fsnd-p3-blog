@@ -9,12 +9,26 @@ a.clean-link {
 
 }
 
-.blogpost-footer {
-  text-align: right;
-}
-
 .blogpost-footer ul {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: row;
+  flex-direction: row;
+  flex-wrap: wrap;
+  -webkit-justify-content: flex-end;
+  justify-content: flex-end;
+
   list-style-type: none;
   margin: 0;
   padding: 0;
+}
+
+.blogpost-footer ul li {
+  list-style: none;
+  display: inline-block;
+  min-width: 25%%;
+  margin: 3px;
 }
