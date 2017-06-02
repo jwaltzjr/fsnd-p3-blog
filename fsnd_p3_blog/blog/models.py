@@ -29,7 +29,7 @@ class BlogPost(models.Model):
 
     def publish(self):
         self.published = True
-        self.published_time = timezone.now()
+        self.publish_time = timezone.now()
         self.save()
         return self
 
