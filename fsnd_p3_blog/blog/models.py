@@ -21,8 +21,8 @@ class BlogPost(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
     likes = GenericRelation(Like)
-    published = models.BooleanField()
-    publish_time = models.DateTimeField(blank=True)
+    published = models.BooleanField(default=False)
+    publish_time = models.DateTimeField(blank=True, null=True)
 
     def get_absolute_url(self):
         return reverse('post_view', kwargs={'pk': self.pk})
