@@ -35,6 +35,7 @@ class BlogPostUpdate(LoginRequiredMixin, UpdateView):
 
     def get_object(self, queryset=None):
         blogpost = super().get_object()
+        # Users can only update their own blogpost
         if blogpost.user != self.request.user:
             raise PermissionDenied
         return blogpost
@@ -49,6 +50,7 @@ class BlogPostDelete(LoginRequiredMixin, DeleteView):
 
     def get_object(self, queryset=None):
         blogpost = super().get_object()
+        # Users can only delete their own blogpost
         if blogpost.user != self.request.user:
             raise PermissionDenied
         return blogpost
