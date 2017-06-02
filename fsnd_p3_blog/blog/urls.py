@@ -16,6 +16,7 @@ post_patterns = [
     url(r'^delete/$', views.BlogPostDelete.as_view(), name='post_delete'),
     url(r'^like/$', views.like_post, name='post_like'),
     url(r'^unlike/$', views.unlike_post, name='post_unlike'),
+    url(r'^publish/$', views.publish, name='post_publish'),
     url(r'^(?P<comment_pk>[0-9]+)/', include(comment_patterns))
 ]
 

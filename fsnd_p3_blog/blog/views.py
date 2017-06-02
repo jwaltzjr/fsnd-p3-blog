@@ -71,6 +71,13 @@ def drafts(request):
     return render(request, 'blog/drafts.html', {'posts': drafts})
 
 @login_required
+def publish(request, pk=None):
+    post = get_object_or_404(models.BlogPost, pk=pk)
+    if request.user == post.user: # Can only publish your own post
+        post.publish()
+    return redirect('post_view', pk=post.pk)
+
+@login_required
 def like_post(request, pk=None):
     post = get_object_or_404(models.BlogPost, pk=pk)
     if request.user != post.user: # Can't like your own post
