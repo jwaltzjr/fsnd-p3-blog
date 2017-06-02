@@ -15,7 +15,8 @@
       <ul class="nav navbar-nav">
         <li><a href = "{{ url('newpost') }}">New Post</a></li>
         {% if request.user.is_authenticated() %}
-          <li><a href = "{{ url('user_redirect') }}">My Posts</a></li>
+          <li><a href = "{{ url('drafts') }}">Drafts</a></li>
+          <li><a href = "{{ url('user_redirect') }}">Published</a></li>
         {% endif %}
       </ul>
 
