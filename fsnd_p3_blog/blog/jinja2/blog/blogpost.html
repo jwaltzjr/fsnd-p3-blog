@@ -39,7 +39,11 @@
 
   <footer class="blogpost-footer">
     <ul>
-      <li>Author: {{ post.user.username }}</li>
+      <li>Author:
+        <a href="{{ url('user_view', kwargs={'username': post.user.username}) }}">
+          {{ post.user.username }}
+        </a>
+      </li>
       <li>Posted: {{ post.created|format_datetime }}</li>
       <li>Last Modified: {{ post.modified|format_datetime }}</li>
     </ul>
