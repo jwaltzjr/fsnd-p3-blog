@@ -32,7 +32,7 @@
       {% else %}
         <a class="btn btn-default" href="{{
           url('post_like', kwargs={'pk': post.pk})
-        }}{{ request.path|urlencode }}">Like</a>
+        }}?from={{ request.path|urlencode }}">Like</a>
       {% endif %}
     {% endif %}
   </div>
