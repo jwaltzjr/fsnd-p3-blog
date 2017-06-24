@@ -16,7 +16,7 @@
         <li><a href = "{{ url('newpost') }}">New Post</a></li>
         {% if request.user.is_authenticated() %}
           <li><a href = "{{ url('drafts') }}">Drafts</a></li>
-          <li><a href = "{{ url('user_redirect') }}">Published</a></li>
+          <li><a href = "{{ url('user_view', kwargs={'username': request.user.username}) }}">Published</a></li>
         {% endif %}
       </ul>
 
