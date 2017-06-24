@@ -28,11 +28,11 @@
       {% if post.user_liked(request.user) %}
         <a class="btn btn-default" href="{{
           url('post_unlike', kwargs={'pk': post.pk})
-        }}">Unlike</a>
+        }}?from={{ request.path|urlencode }}">Unlike</a>
       {% else %}
         <a class="btn btn-default" href="{{
           url('post_like', kwargs={'pk': post.pk})
-        }}">Like</a>
+        }}{{ request.path|urlencode }}">Like</a>
       {% endif %}
     {% endif %}
   </div>

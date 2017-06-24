@@ -86,7 +86,11 @@ def like_post(request, pk=None):
             content_type = ContentType.objects.get_for_model(post.__class__),
             object_id = post.id
         )
-    return redirect('post_view', pk=post.pk)
+    from_url = request.GET.get('from', None)
+    if from_url:
+        return redirect(from_url)
+    else:
+        return redirect('post_view', pk=post.pk)
 
 @login_required
 def unlike_post(request, pk=None):
@@ -100,7 +104,11 @@ def unlike_post(request, pk=None):
         like.delete()
     except models.Like.DoesNotExist:
         pass
-    return redirect('post_view', pk=post.pk)
+    from_url = request.GET.get('from', None)
+    if from_url:
+        return redirect(from_url)
+    else:
+        return redirect('post_view', pk=post.pk)
 
 @login_required
 def user_self_redirect(request):
